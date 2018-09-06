@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>view</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+          <h1 class="text-center">Hot Restaurant!</h1>
+          <h3 class="text-center">Book your table before they are all gone!</h3>
+          <hr>
+          
+          <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-home"></span> Home </button></a>
+          <a href="/reservation"><button class="btn btn-danger btn-lg"><span class="fa fa-th-list"></span> Make a Reservation</button></a>
+        </div>
+        <p> <a href="/api/tables">API Tables Link</a> | <a href="/api/waitlist">API Wait List Link</a></p>
+        <div class="row">
+
+            <div class="col-12">
+      
+              <div class="card">
+                <div class="card-header">
+                  <h3><strong>Reservation List</strong></h3>
+                </div>
+                <div class="card-body">
+                  <ul id="reservation" class="list-group">
+      
+                  </ul>
+                  <ul id="waitlist" class="list-group">
+                      
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    $.get("/api/reservations", function(data) {
+      for (var i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        var listGroupItem = $("<li class='list-group-item'>");
+
+        listGroupItem.append($("<h2>").text("Name: " + data[i].name));
+        listGroupItem.append($("<h3>").text("Phone: " + data[i].phone));
+        listGroupItem.append($("<h3>").text("e-mail: " + data[i].email));
+        listGroupItem.append($("<h3>").text("Unique Identifier: " + data[i].id));
+
+        $("#reservation").append(listGroupItem);
+      }
+    });
+    $.get("/api/waitlist", function(data) {
+      for (var i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        var listGroupItem = $("<li class='list-group-item'>");
+
+        listGroupItem.append($("<h2>").text("Name: " + data[i].name));
+        listGroupItem.append($("<h3>").text("Phone: " + data[i].phone));
+        listGroupItem.append($("<h3>").text("e-mail: " + data[i].email));
+        listGroupItem.append($("<h3>").text("Unique Identifier: " + data[i].id));
+
+        $("#waitlist").append(listGroupItem);
+      }
+    });
+    
+  </script>
+</html>

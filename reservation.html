@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reservation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+          <h1>Hot Restaurant!</h1>
+          <h3>Book your table before they are all gone!</h3>
+          <hr>
+          <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-home"></span> Home</button></a>
+          <a href="/view"><button class="btn btn-danger btn-lg"><span class="fa fa-th-list"></span> View all Reservations</button></a>
+        </div>
+        <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" class="form-control" id="phone" placeholder="Phone">
+            </div>
+            <div class="form-group">
+                <label for="email">e-mail</label>
+                <input type="text" class="form-control" id="email" placeholder="e-mail">
+            </div>
+            <div class="form-group">
+                <label for="id">Please enter a unique identifier that you will remmember.</label>
+                <input type="text" class="form-control" id="id" placeholder="Unique-Identifer">
+            </div>
+            <button type="submit" class="btn btn-primary" id="add-btn">Submit</button>
+          </form>
+        <p> <a href="/api/tables">API Tables Link</a> | <a href="/api/waitlist">API Wait List Link</a></p>
+</body>
+<script type="text/javascript">
+    $("#add-btn").on("click", function(event) {
+      event.preventDefault();
+      var newCharacter = {
+        name: $("#name").val().trim(),
+        phone: $("#phone").val().trim(),
+        email: $("#email").val().trim(),
+        id: $("#id").val().trim()
+      };
+      console.log(newCharacter)
+      // Question: What does this code do??
+      $.post("/api/reservations", newCharacter)
+        .then(function(data) {
+          console.log("add.html", data);
+          alert("Adding character...");
+        });
+    });
+  </script>
+
+</html>
